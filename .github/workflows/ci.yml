@@ -34,12 +34,12 @@ jobs:
 
       - name: Installer les dépendances
         working-directory: ./backend
-        run: npm install
+        run: npm ci
 
       - name: Lancer les tests
         working-directory: ./backend
         env:
-          REDIS_HOST: localhost
+          REDIS_URL: redis://localhost:6379
         run: npm test
 
   lint:
@@ -55,9 +55,11 @@ jobs:
           node-version: 20
 
       - name: Installer les dépendances
-        run: npm install
+        working-directory: ./backend
+        run: npm ci
 
       - name: Vérifier le style du code
+        working-directory: ./backend
         run: npm run lint
 
   build:
@@ -74,7 +76,7 @@ jobs:
 
       - name: Builder l'image Docker
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/tpfinal:${{ steps.vars.outputs.tag }} .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/tpfinal:${{ steps.vars.outputs.tag }} ./backend
 
       - name: Scan sécurité Trivy
         run: |
@@ -94,7 +96,7 @@ jobs:
   deploy-staging:
     name: Deploy staging
     runs-on: ubuntu-latest
-    needs: build
+    needs: [test, lint]
     if: github.ref == 'refs/heads/staging'
     steps:
       - name: Déployer en staging
