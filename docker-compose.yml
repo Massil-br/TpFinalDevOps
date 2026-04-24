@@ -3,6 +3,7 @@ services:
     image: redis:7-alpine
     volumes:
       - redis_data:/data
+    host: "redis"
     networks:
       -backend_net
     restart : unless-stopped
