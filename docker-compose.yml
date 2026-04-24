@@ -11,13 +11,12 @@ services:
     build:
       context: ./backend
     env_file: .env.example
-    ports:
-      - "3001:3001"
+    expose:
+      - "3001"
     depends_on:
       - redis
     networks:
       - backend_net
-      - frontend_net
     restart: unless-stopped
 
   frontend:
@@ -29,6 +28,8 @@ services:
       - backend
     networks:
       - frontend_net
+      - backend_net
+    restart: unless-stopped
 
 volumes:
   redis_data:
