@@ -189,14 +189,16 @@ const server = http.createServer(async (req, res) => {
 
 // ── Démarrage ────────────────────────────────────────────────────────
 
-client.connect().then(() => {
-  console.log(`Redis connecté sur ${REDIS_URL}`);
-  server.listen(PORT, () => {
-    console.log(`TaskFlow API — env: ${APP_ENV}, version: ${APP_VERSION}, port: ${PORT}`);
+if (require.main === module) {
+  client.connect().then(() => {
+    console.log(`Redis connecté sur ${REDIS_URL}`);
+    server.listen(PORT, () => {
+      console.log(`TaskFlow API — env: ${APP_ENV}, version: ${APP_VERSION}, port: ${PORT}`);
+    });
+  }).catch((err) => {
+    console.error("Impossible de démarrer:", err.message);
+    process.exit(1);
   });
-}).catch((err) => {
-  console.error("Impossible de démarrer:", err.message);
-  process.exit(1);
-});
+}
 
 module.exports = { server, genId, VALID_STATUSES, VALID_PRIORITIES };
