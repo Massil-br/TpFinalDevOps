@@ -3,6 +3,8 @@ services:
     image: redis:7-alpine
     volumes:
       - redis_data:/data
+    ports:
+      - "6379:6379"
     networks:
       - backend_net
     restart: unless-stopped
@@ -11,12 +13,13 @@ services:
     build:
       context: ./backend
     env_file: .env.example
-    expose:
-      - "3001"
+    ports:
+      - "3001:3001"
     depends_on:
       - redis
     networks:
       - backend_net
+      - frontend_net
     restart: unless-stopped
 
   frontend:
@@ -28,7 +31,6 @@ services:
       - backend
     networks:
       - frontend_net
-      - backend_net
     restart: unless-stopped
 
 volumes:
