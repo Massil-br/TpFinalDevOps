@@ -15,16 +15,16 @@ jobs:
     steps:
       -use: actions/checkout@v4
 
-      -name: Installer Node.js 18
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
+      -name: Installer Node.js 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
       
       -name: Installer les dépendances
-        run: npm install
+      run: npm install
 
       -name: Lancer les tests
-        run: npm test
+      run: npm test
 
   lint: 
     name: lint
