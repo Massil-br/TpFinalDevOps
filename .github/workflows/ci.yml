@@ -172,4 +172,5 @@ jobs:
       - name: Deploy
         run: |
           kubectl --kubeconfig=kubeconfig set image deployment/app app=${{ secrets.DOCKER_USERNAME }}/tpfinal:${{ github.ref_name }}
+   
           
