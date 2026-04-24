@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: taskflow-config
+  namespace: taskflow-staging
+data:
+  APP_ENV: staging
+  APP_VERSION: "1.0.0"
+  PORT: "3001"
+  REDIS_URL: redis://HOST_IP:6379
