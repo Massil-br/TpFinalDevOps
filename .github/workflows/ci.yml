@@ -104,3 +104,4 @@ jobs:
           echo "Déploiement en staging..."
           echo "Image : ${{ secrets.DOCKER_USERNAME }}/tpfinal:staging"
           echo "Déploiement réussi en staging !"
+

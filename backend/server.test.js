@@ -1,7 +1,7 @@
 // server.test.js — tests unitaires TaskFlow
 // Portent sur la logique pure : pas de connexion Redis requise.
 
-const { genId, VALID_STATUSES, VALID_PRIORITIES } = require("./server");
+// const { genId, VALID_STATUSES, VALID_PRIORITIES } = require("./server");
 
 let passed = 0;
 let failed = 0;
