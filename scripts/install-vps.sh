@@ -22,9 +22,10 @@ curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="\
   --write-kubeconfig-mode 644 \
   --tls-san ${VPS_IP}" sh -
 
+echo "==> Demarrage du service k3s"
+sudo systemctl enable --now k3s
 echo "==> Attente du demarrage de k3s"
 until sudo kubectl get nodes >/dev/null 2>&1; do sleep 2; done
-
 echo "==> Configuration kubectl pour l'utilisateur courant"
 mkdir -p "$HOME/.kube"
 sudo cp /etc/rancher/k3s/k3s.yaml "$HOME/.kube/config"
